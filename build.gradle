@@ -1,0 +1,107 @@
+import static org.jreleaser.model.Active.ALWAYS
+
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+    id 'org.springframework.boot' version "$springBootVersion"
+    id 'io.spring.dependency-management' version "$dependencyManagementVersion"
+    id 'org.jreleaser' version "$jreleaserVersion"
+}
+
+group = 'io.github.pluxurydolo'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+repositories {
+    mavenCentral()
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            from components.java
+            pom {
+                name = 'entity-spring-boot-starter'
+                description = 'Spring Boot Starter for entities made for personal use'
+                url = 'https://upload.wikimedia.org/wikipedia/en/c/ce/Randallkennedybook.jpg'
+                developers {
+                    developer {
+                        id = 'pluxurydolo'
+                        name = 'Alexander'
+                    }
+                }
+                scm {
+                    url = 'scm:git:git://github.com/entity-spring-boot-starter.git'
+                    connection = 'scm:git:git://github.com/entity-spring-boot-starter.git'
+                    tag = '1.0.0'
+                }
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = uri layout.buildDirectory.dir('staging-deploy')
+        }
+    }
+}
+
+jreleaser {
+    release {
+        github {
+            skipRelease.set true
+            skipTag.set true
+        }
+    }
+    signing {
+        active.set ALWAYS
+        armored.set true
+        verify.set true
+    }
+    project {
+        inceptionYear.set '2026'
+        author('@pluxurydolo')
+    }
+    deploy {
+        maven {
+            mavenCentral.create('sonatype') {
+                active.set ALWAYS
+                url = 'https://central.sonatype.com/api/v1/publisher'
+                stagingRepository layout.buildDirectory.dir('staging-deploy').get().toString()
+                setAuthorization 'Basic'
+                retryDelay.set 60
+            }
+        }
+    }
+}
+
+dependencies {
+    api "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+    api "org.springframework.boot:spring-boot-starter-liquibase:$springBootVersion"
+    api "org.postgresql:postgresql:$postgresqlVersion"
+    implementation "org.springframework.boot:spring-boot-starter:$springBootVersion"
+    testImplementation "org.springframework.boot:spring-boot-starter-webflux-test:$springBootVersion"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
