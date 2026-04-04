@@ -111,6 +111,8 @@ dependencies {
     api "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
     api "org.springframework.boot:spring-boot-starter-liquibase:$springBootVersion"
     api "org.postgresql:postgresql:$postgresqlVersion"
+
     implementation "org.springframework.boot:spring-boot-starter:$springBootVersion"
+
     testImplementation "org.springframework.boot:spring-boot-starter-webflux-test:$springBootVersion"
 }
