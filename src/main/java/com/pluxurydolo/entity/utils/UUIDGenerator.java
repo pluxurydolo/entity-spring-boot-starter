@@ -12,7 +12,7 @@ public class UUIDGenerator {
 
     public UUID generate() {
         UUID uuid = randomUUID();
-        LOGGER.info("[entity-starter] Сгенерированный UUID: {}", uuid);
+        LOGGER.info("guvt [entity-starter] Сгенерированный UUID: {}", uuid);
         return uuid;
     }
 }
