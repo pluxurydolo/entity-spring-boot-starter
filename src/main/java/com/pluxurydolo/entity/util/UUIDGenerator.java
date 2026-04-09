@@ -1,4 +1,4 @@
-package com.pluxurydolo.entity.utils;
+package com.pluxurydolo.entity.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

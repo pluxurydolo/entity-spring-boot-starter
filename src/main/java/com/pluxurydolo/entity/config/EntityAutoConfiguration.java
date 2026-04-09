@@ -1,6 +1,6 @@
 package com.pluxurydolo.entity.config;
 
-import com.pluxurydolo.entity.utils.UUIDGenerator;
+import com.pluxurydolo.entity.util.UUIDGenerator;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.hibernate.autoconfigure.HibernatePropertiesCustomizer;
 import org.springframework.context.annotation.Bean;
