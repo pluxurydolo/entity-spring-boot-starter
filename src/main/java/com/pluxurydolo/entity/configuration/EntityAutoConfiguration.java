@@ -1,4 +1,4 @@
-package com.pluxurydolo.entity.config;
+package com.pluxurydolo.entity.configuration;
 
 import com.pluxurydolo.entity.util.UUIDGenerator;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
